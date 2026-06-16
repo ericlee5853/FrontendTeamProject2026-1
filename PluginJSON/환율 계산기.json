@@ -1,0 +1,1 @@
+{"name":"환율 계산기(USD to KRW)","description":"입력한 달러를 원화로 환산","method":"GET","url":"https://api.exchangerate-api.com/v4/latest/USD","params":[{"key":"usd","label":"달러 금액 ($)"}],"responsePath":"rates.KRW","outputTemplate":"${{usd}} = {{result * usd}}원"}

@@ -1,0 +1,432 @@
+/* ═══════════════════════════════════════════════
+   Content.css — 콘텐츠 영역
+   채팅창 / 친구 탭 / 채팅 정보 패널
+   ═══════════════════════════════════════════════ */
+
+/* ── 탭 콘텐츠 공통 ── */
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+}
+
+/* ════════════════════════════════
+   1. 빈 상태 (선택된 방 없음)
+   ════════════════════════════════ */
+
+.empty-state {
+  align-items: center;
+  justify-content: center;
+}
+
+.fallback-message-box {
+  text-align: center;
+  color: var(--text-3);
+  padding: 40px;
+}
+.fallback-message-box h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+.fallback-message-box p { font-size: 14px; }
+
+/* ════════════════════════════════
+   2. 채팅 헤더
+   ════════════════════════════════ */
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.room-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.2px;
+  /* 방 이름 앞 주황 # 표시 — Discord 채널 느낌 */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.room-title::before {
+  content: '#';
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 정보(i) 토글 버튼 — 원형 */
+#btn-chat-info-toggle {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  font-style: italic;
+  font-weight: 700;
+  font-family: Georgia, serif;
+}
+
+/* ════════════════════════════════
+   3. 메시지 영역
+   ════════════════════════════════ */
+
+.messages-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 12px;
+  background: var(--bg-base);            /* 채팅 영역만 더 어둡게 */
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  margin-bottom: 12px;
+}
+
+.messages-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 메시지 행 */
+.message-bubble-row {
+  display: flex;
+  flex-direction: column;
+  max-width: 65%;
+  animation: msg-in 0.18s ease both;
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.message-mine   { align-self: flex-end;   align-items: flex-end; }
+.message-others { align-self: flex-start; align-items: flex-start; }
+
+/* 보낸 사람 이름 */
+.message-sender-name {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-bottom: 4px;
+  padding: 0 4px;
+}
+/* 내 메시지는 이름 생략 (Messenger 스타일) */
+.message-mine .message-sender-name { display: none; }
+
+/* 말풍선 */
+.message-text-content {
+  padding: 9px 14px;
+  border-radius: var(--r-lg);
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* 내 말풍선 — 주황 */
+.message-mine .message-text-content {
+  background: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+/* 상대 말풍선 — 회색 */
+.message-others .message-text-content {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-1);
+  border-bottom-left-radius: 4px;
+}
+
+/* 검색 하이라이트된 메시지 */
+.highlighted-message .message-text-content {
+  background: var(--accent-tint) !important;
+  border: 1px solid var(--accent) !important;
+  color: var(--text-1) !important;
+  box-shadow: 0 0 12px var(--accent-tint);
+  transition: all 0.4s ease;
+}
+
+/* ════════════════════════════════
+   4. 메시지 입력 폼
+   ════════════════════════════════ */
+
+.send-form {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════
+   5. 채팅 정보 패널 (검색/멤버/나가기)
+   ════════════════════════════════ */
+
+.relative-container { position: relative; }
+
+.info-panel {
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  left: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  z-index: 10;
+  animation: panel-in 0.2s ease both;
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.info-panel-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.info-section-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+
+.search-form { display: flex; gap: 5px; margin-bottom: 10px; }
+
+.search-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+.search-status { flex: 1; color: var(--text-2); }
+
+/* 멤버 목록 */
+.member-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+.member-list-item {
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-size: 13px;
+  transition: background var(--ease), color var(--ease);
+}
+.member-list-item:hover {
+  background: var(--accent-tint);
+  color: var(--accent);
+}
+
+/* 뒤로가기 링크 */
+.btn-back-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-family: var(--font);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.small-card { padding: 10px; font-size: 13px; }
+
+.border-top {
+  border-left: 1px solid var(--border);
+  padding-left: 20px;
+  justify-content: center;
+}
+
+/* ════════════════════════════════
+   6. 친구 탭 (FriendTabContent.jsx)
+   ════════════════════════════════ */
+
+#content-friend-wrapper {
+  display: block;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* 프로필 카드 */
+.profile-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 18px;
+  margin-bottom: 20px;
+  background: var(--bg-surface);
+}
+.profile-card.highlighted {
+  border-color: var(--accent-line);
+  background: var(--bg-surface);
+}
+
+.card-title {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-1);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.profile-info-text {
+  margin: 8px 0;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--text-3);
+  display: inline-block;
+  width: 64px;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+/* 구분선 (FriendTab의 <hr> 대체 스타일) */
+#content-friend-wrapper hr {
+  margin: 28px 0 !important;
+  border: none !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+/* ── 아코디언 ── */
+.accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accordion-item {
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--bg-surface);
+  transition: border-color var(--ease);
+}
+.accordion-item:has(.accordion-body) { border-color: var(--accent-line); }
+
+.accordion-header {
+  padding: 14px 18px;
+  background: transparent;
+  cursor: pointer;
+  transition: background var(--ease);
+  color: var(--text-1);
+}
+.accordion-header:hover { background: var(--bg-hover); }
+
+.accordion-body {
+  padding: 18px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-panel);
+  animation: slideDown 0.25s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 함께 속한 채팅방 박스 (인라인 #f9f9f9 → 클래스로 교체됨) */
+.shared-rooms-box {
+  margin-top: 18px;
+  padding: 12px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.shared-rooms-box h5 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.shared-rooms-box ul {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  list-style: none;
+}
+.shared-room-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  background: var(--bg-surface);
+  margin-bottom: 6px;
+  color: var(--text-2);
+}
+.shared-room-empty { color: var(--text-3); padding: 4px 0; }
+
+
+/* ── 메시지 타임스탬프 ──
+   그룹의 마지막 메시지 하단에 조그맣게 표시 */
+.message-timestamp {
+  font-size: 10.5px;
+  color: var(--text-3);
+  margin-top: 3px;
+  padding: 0 4px;
+  user-select: none;       /* 드래그 복사 시 시간 텍스트 제외 */
+  letter-spacing: 0.02em;
+}
+
+/* 내 메시지는 시간도 오른쪽 정렬 (말풍선 정렬 따라감 — 추가 설정 불필요하지만 명시) */
+.message-mine .message-timestamp   { text-align: right; }
+.message-others .message-timestamp { text-align: left; }
+
+/* ── 같은 분(分) 그룹 내 연속 메시지 ──
+   타임스탬프가 생략된 메시지는 아래 간격을 좁혀
+   하나의 묶음처럼 보이게 함 */
+.message-grouped {
+  margin-bottom: -6px;     /* messages-stream의 gap(10px)을 4px로 줄이는 효과 */
+}
+
+/* 그룹 내 연속 말풍선은 모서리를 살짝 덜 둥글게 — 이어진 느낌 */
+.message-grouped.message-mine .message-text-content {
+  border-bottom-right-radius: var(--r-lg);  /* 꼬리 제거 (마지막 메시지에만 꼬리) */
+  border-top-right-radius: 8px;
+}
+.message-grouped.message-others .message-text-content {
+  border-bottom-left-radius: var(--r-lg);
+  border-top-left-radius: 8px;
+}

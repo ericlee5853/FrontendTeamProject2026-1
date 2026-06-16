@@ -1,0 +1,241 @@
+/* ═══════════════════════════════════════════════
+   MainPage.css — 메인 4패널 레이아웃
+   Menu | List | Content | Extension
+   각 패널은 마진으로 구분 + 라운드 처리 (Discord 스타일)
+   ═══════════════════════════════════════════════ */
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* ── 전체 레이아웃 ── */
+.layout-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-base);
+  padding: 10px;          /* 바깥 여백 */
+  gap: 10px;              /* 패널 사이 마진 */
+}
+
+/* ── 패널 공통: 라운드 + 패널 배경 ── */
+.layout-section {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+/* ── 1) Menu: 좌측 얇은 탭 바 ── */
+#menu-section {
+  width: 88px;
+  flex-shrink: 0;
+}
+
+/* ── 2) List: 채팅방/친구 목록 ── */
+#list-section {
+  width: 280px;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+/* ── 3) Content: 메인 콘텐츠 (남은 공간 모두) ── */
+#content-section {
+  flex: 1;
+  min-width: 0;           /* flex 내부 넘침 방지 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 4) Extension: 우측 확장 패널 ── */
+#extension-section {
+  width: 320px;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+/* Extension이 닫혀 내용이 없으면 패널 자체를 숨김
+   (빈 패널이 마진만 차지하는 것 방지) */
+#extension-section:empty {
+  display: none;
+}
+
+/* ════════════════════════════════
+   반응형 (데스크탑 범위 내 조정)
+   ════════════════════════════════ */
+
+/* 노트북 (1280px 이하): List/Extension 축소 */
+@media (max-width: 1280px) {
+  #list-section      { width: 240px; }
+  #extension-section { width: 280px; }
+}
+
+/* 작은 노트북 (1024px 이하): 여백 축소 + Menu 슬림화 */
+@media (max-width: 1024px) {
+  .layout-container { padding: 8px; gap: 8px; }
+  #menu-section      { width: 72px; }
+  #list-section      { width: 220px; }
+  #extension-section { width: 260px; }
+}
+
+/* ════════════════════════════════
+   Menu 내부 (Menu.jsx)
+   ════════════════════════════════ */
+
+#menu-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 10px;
+  gap: 8px;
+}
+
+/* 탭 버튼 공통 */
+#btn-tab-chat,
+#btn-tab-friend {
+  width: 100%;
+  aspect-ratio: 1;          /* 정사각형 버튼 */
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all var(--ease);
+}
+
+/* 비활성 탭 */
+.tab-inactive {
+  background: transparent;
+  color: var(--text-3);
+}
+.tab-inactive:hover {
+  background: var(--bg-surface);
+  color: var(--text-2);
+}
+
+/* 활성 탭 — 주황 틴트 강조 */
+.tab-active {
+  background: var(--accent-tint);
+  color: var(--accent);
+  border: 1px solid var(--accent-line) !important;
+}
+
+/* 로그아웃 — 맨 아래 고정 */
+#btn-logout {
+  margin-top: auto;
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text-3);
+  font-size: 12px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all var(--ease);
+}
+#btn-logout:hover {
+  background: var(--danger-tint);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ════════════════════════════════
+   List 내부 (List.jsx)
+   ════════════════════════════════ */
+
+.nav-list-wrapper {
+  padding: 16px 12px;
+}
+
+/* 섹션 제목 */
+.section-header {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.2px;
+  margin-bottom: 14px;
+  padding: 0 4px;
+}
+
+/* 채팅방 아이템 */
+.list-item.room-item {
+  padding: 12px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+  transition: background var(--ease), border-color var(--ease);
+}
+.list-item.room-item:hover { background: var(--bg-surface); }
+
+/* 선택된 채팅방 — 주황 틴트 */
+.list-item.active-room {
+  background: var(--accent-tint);
+  border-color: var(--accent-line);
+}
+.list-item.active-room .room-name { color: var(--accent); }
+
+.room-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.room-last-message {
+  font-size: 12px;
+  color: var(--text-3) !important;   /* 인라인 스타일 #666 덮어쓰기 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 친구 요청 박스 — 받은 요청 (인라인 라이트색 → 클래스로 교체됨) */
+.request-box {
+  padding: 12px;
+  border-radius: var(--r-md);
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+.request-box--received { border-left: 3px solid var(--accent); }
+.request-box--sent     { border-left: 3px solid var(--danger); }
+
+.request-box-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+.request-box--received .request-box-title { color: var(--accent); }
+.request-box--sent     .request-box-title { color: var(--danger); }
+
+.request-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 13px;
+  gap: 8px;
+}
+.request-row-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-2);
+  flex: 1;
+}
+
+/* 빈 요청 안내 */
+.empty-hint {
+  color: var(--text-3);
+  font-size: 13px;
+  text-align: center;
+  padding: 12px 0;
+}

@@ -1,0 +1,287 @@
+/* ═══════════════════════════════════════════
+   Extension.css — 익스텐션 패널
+   리스트 → 상세 네비게이션 구조
+   다크 + Claude 주황 (global.css 토큰)
+   ═══════════════════════════════════════════ */
+
+#extension-container {
+  position: relative;       /* 플로팅 버튼 기준점 */
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+#extension-title {
+  margin: 0 0 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+#extension-title::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════
+   기능 리스트
+   ════════════════════════════════ */
+
+.ext-list-container { overflow: hidden; }
+
+.feature-list {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0 -4px;          /* 스크롤바 여유 */
+  padding: 0 4px;
+}
+
+/* 섹션 라벨 */
+.feature-list-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin: 14px 4px 8px;
+}
+.feature-list-label:first-child { margin-top: 0; }
+
+/* 리스트 항목 */
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg-surface);
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: border-color var(--ease), background var(--ease), transform var(--ease);
+}
+.feature-item:hover {
+  border-color: var(--accent-line);
+  background: var(--bg-hover);
+}
+.feature-item:active { transform: scale(0.99); }
+
+/* 항목 아이콘 */
+.feature-item-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: var(--bg-base);
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+}
+.feature-item-icon--plugin {
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+}
+
+.feature-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.feature-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.feature-item-desc {
+  font-size: 12px;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.feature-item-arrow {
+  color: var(--text-3);
+  font-size: 20px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* 제거 버튼 (내 플러그인) */
+.feature-item-remove {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--text-3);
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background var(--ease), color var(--ease);
+}
+.feature-item-remove:hover {
+  background: var(--danger-tint);
+  color: var(--danger);
+}
+
+/* 빈 상태 */
+.feature-empty {
+  font-size: 13px;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.7;
+  padding: 16px 0;
+}
+
+/* ════════════════════════════════
+   우하단 플로팅 버튼 (FAB)
+   ════════════════════════════════ */
+
+.ext-fab {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: 60px;
+  height: 30px;
+  border-radius: var(--r-sm);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(217, 119, 87, 0.4);
+  transition: background var(--ease), transform var(--ease), box-shadow var(--ease);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ext-fab:hover {
+  background: var(--accent-hover);
+  transform: scale(1.06);
+  box-shadow: 0 6px 20px rgba(217, 119, 87, 0.5);
+}
+.ext-fab:active { transform: scale(0.96); }
+
+/* ════════════════════════════════
+   상세 화면 헤더 (← 목록)
+   ════════════════════════════════ */
+.btn-back-link {
+  display: inline-flex;
+}
+
+.feature-detail-header {
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.feature-detail-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+  align-items: center;
+  text-align: center;
+  gap: 7px;
+}
+.feature-icon { font-size: 17px; }
+
+.feature-detail-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ════════════════════════════════
+   기존 기능 내부 요소 (장소/날씨/AI)
+   ════════════════════════════════ */
+
+.ext-input-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.ext-btn-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.ext-btn-row > button { flex: 1; margin: 0; }
+
+.error-message   { color: var(--danger); font-size: 13px; margin-bottom: 10px; }
+.loading-message { color: var(--accent); font-size: 13px; margin-bottom: 10px; }
+
+/* AI 추천 결과 */
+.recommendation-result { margin-bottom: 14px; }
+.recommendation-result pre {
+  font-size: 13px;
+  font-family: var(--font);
+  white-space: pre-wrap;
+  background: var(--bg-base);
+  color: var(--text-1);
+  padding: 12px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--accent-line);
+  line-height: 1.6;
+}
+.recommendation-result .btn-primary { margin-top: 8px; }
+
+/* 장소 목록 */
+.place-list { max-height: 400px; overflow-y: auto; }
+.place-item {
+  margin-bottom: 8px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-surface);
+  transition: border-color var(--ease);
+}
+.place-item:hover { border-color: var(--accent-line); }
+.place-item h6 { margin: 0 0 4px; font-size: 14px; font-weight: 600; color: var(--text-1); }
+.place-item p  { margin: 0 0 8px; font-size: 12px; color: var(--text-3); }
+.place-item label {
+  font-size: 13px; cursor: pointer; color: var(--text-2);
+  display: flex; align-items: center; gap: 6px;
+}
+.place-item input[type="checkbox"] {
+  accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer;
+}
+.place-list-empty { color: var(--text-3); font-size: 13px; text-align: center; padding: 20px 0; }
+
+/* 날씨 결과 */
+.weather-result {
+  margin-top: 14px;
+  padding: 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-md);
+  text-align: center;
+}
+.weather-result h5 { margin: 0 0 8px; font-size: 14px; color: var(--text-2); font-weight: 600; }
+.weather-temp { margin: 0 0 14px; font-size: 32px; font-weight: 700; color: var(--accent); letter-spacing: -1px; }

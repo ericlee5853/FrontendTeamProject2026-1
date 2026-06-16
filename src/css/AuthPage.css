@@ -1,0 +1,135 @@
+/* ═══════════════════════════════════════════
+   AuthPage.css — 로그인 / 회원가입 화면
+   모든 요소 중앙 정렬
+   ═══════════════════════════════════════════ */
+
+/* 페이지 전체 — 화면 정중앙 배치 */
+#auth-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
+  /* 미세한 주황 라디얼 — 분위기 연출 */
+  background-image: radial-gradient(
+    ellipse 600px 400px at 50% 38%,
+    rgba(217, 119, 87, 0.06),
+    transparent
+  );
+}
+
+/* 로그인 / 회원가입 카드 공통 */
+#login-container,
+#signup-container {
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 40px 36px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;          /* 카드 내부도 중앙 정렬 */
+  text-align: center;
+  animation: auth-card-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes auth-card-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 타이틀 */
+#login-title,
+#signup-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+
+/* 타이틀 아래 주황 포인트 라인 */
+#login-title::after,
+#signup-title::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 999px;
+  margin: 12px auto 0;
+}
+
+/* 폼 */
+#login-form,
+#signup-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* 입력창 (Login.jsx의 id 입력에도 적용) */
+#login-form input,
+.auth-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-family: var(--font);
+  color: var(--text-1);
+  outline: none;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+#login-form input::placeholder,
+.auth-input::placeholder { color: var(--text-3); }
+#login-form input:focus,
+.auth-input:focus {
+  border-color: var(--accent-line);
+  box-shadow: 0 0 0 3px var(--accent-tint);
+}
+
+/* 제출 버튼 */
+#login-submit,
+.auth-btn-submit {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background var(--ease), transform var(--ease);
+}
+#login-submit:hover,
+.auth-btn-submit:hover { background: var(--accent-hover); }
+#login-submit:active,
+.auth-btn-submit:active { transform: scale(0.98); }
+
+/* 화면 전환 링크 버튼 */
+#login-switch,
+.auth-btn-switch,
+#signup-switch {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: var(--text-2);
+  font-size: 13px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: color var(--ease);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+#login-switch:hover,
+.auth-btn-switch:hover,
+#signup-switch:hover { color: var(--accent); }

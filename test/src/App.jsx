@@ -1,0 +1,36 @@
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext"; // 추가
+import ProtectedRoute from "./routes/ProtectedRoute"; // 추가
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Main from "./pages/Main";
+
+function App() {
+  return (
+    <AuthProvider> {/* 1. 앱 전체를 인증 컨텍스트로 감싸준다 */}
+      <Router>
+        <Routes>
+          {/* 누구나 접근 가능한 페이지 */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          
+          {/* 2. 로그인한 사람만 접근 가능한 페이지 (방패로 감싸기) */}
+          <Route 
+            path="/" 
+            element={
+              <ProtectedRoute>
+                <Main />
+              </ProtectedRoute>
+            } 
+          />
+          
+
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
+}
+
+export default App;

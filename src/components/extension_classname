@@ -1,0 +1,66 @@
+/* --- 1. 최상위 레이아웃 및 공통 요소 --- */
+#extension-container {
+  /* 우측 확장 패널 전체 컨테이너 (너비, 배경색, 패딩 등) */
+}
+
+#extension-title {
+  /* "익스텐션 추가 기능" 상단 타이틀 */
+}
+
+.extension-section {
+  /* 각 기능(장소 검색, 날씨, AI 추천)을 감싸는 섹션 래퍼 (여백 분리용) */
+}
+
+.divider {
+  /* 섹션 사이를 나누는 가로선 (기존 <hr> 대체용 스타일) */
+}
+
+
+
+/* --- 2. 상태 표출 메시지 --- */
+.error-message {
+  /* 오류 발생 시 경고 텍스트 (예: color: red, margin-bottom) */
+}
+
+.loading-message {
+  /* 로딩 상태 텍스트 (예: color: gray, font-style: italic) */
+}
+
+/* --- 3. 날씨 조회 관련 UI --- */
+.weather-result {
+  /* 날씨 결과가 표시되는 박스 래퍼 */
+}
+
+.weather-info {
+  /* 온도, 상태 등 세부 날씨 정보 텍스트 */
+}
+
+/* --- 4. AI 추천 관련 UI --- */
+.recommendation-result {
+  /* AI 추천 결과 블록 (.extension-section과 중첩 사용됨) */
+}
+
+.recommendation-text {
+  /* AI 추천 결과 내용 (pre 태그 속성 제어: white-space: pre-wrap, 폰트, 배경색 등) */
+}
+
+/* --- 5. 장소 검색 리스트 UI --- */
+.place-list {
+  /* 장소 목록 전체 컨테이너 (목록이 길어질 경우 대비 max-height, overflow-y 설정 필수) */
+}
+
+.place-item {
+  /* 개별 장소 항목 박스 (테두리, 여백, 호버 효과 등) */
+}
+
+.place-name {
+  /* 장소명 텍스트 (font-weight, 크기 등) */
+}
+
+.place-address {
+  /* 장소 주소 텍스트 (보조 텍스트 색상 적용) */
+}
+
+.place-select-label {
+  /* 장소 선택 체크박스를 포함하는 라벨 영역 (클릭 영역 확보용) */
+}
