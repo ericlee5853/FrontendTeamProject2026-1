@@ -15,7 +15,6 @@ import { BUILTIN_FEATURES } from "../components/builtinFeatures";
 import PluginRunner from "../components/PluginRunner";
 import PluginGallery from "../components/PluginGallery";
 import "../css/Extension.css";
-import "../css/Plugin.css";
 
 // user, userName props는 MainPage에서 전달
 export default function Extension({ onShare, user, userName }) {

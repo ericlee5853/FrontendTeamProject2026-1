@@ -1,7 +1,10 @@
 /* ═══════════════════════════════════════════
-   Extension.css — 익스텐션 패널
+   Extension.css — 익스텐션 패널 + 플러그인 시스템
    리스트 → 상세 네비게이션 구조
-   다크 + Claude 주황 (global.css 토큰)
+   (기존 Plugin.css 를 이 파일로 통합)
+
+   ※ .error-message, .loading-message, .btn-back-link 는
+     global.css 의 공용 클래스를 사용.
    ═══════════════════════════════════════════ */
 
 #extension-container {
@@ -186,11 +189,9 @@
 /* ════════════════════════════════
    상세 화면 헤더 (← 목록)
    ════════════════════════════════ */
-.btn-back-link {
-  display: inline-flex;
-}
 
 .feature-detail-header {
+  display: flex;
   align-items: center;
   gap: 10px;
   padding-bottom: 12px;
@@ -206,8 +207,8 @@
   font-size: 15px;
   font-weight: 700;
   color: var(--text-1);
+  display: flex;
   align-items: center;
-  text-align: center;
   gap: 7px;
 }
 .feature-icon { font-size: 17px; }
@@ -233,9 +234,6 @@
   margin-bottom: 14px;
 }
 .ext-btn-row > button { flex: 1; margin: 0; }
-
-.error-message   { color: var(--danger); font-size: 13px; margin-bottom: 10px; }
-.loading-message { color: var(--accent); font-size: 13px; margin-bottom: 10px; }
 
 /* AI 추천 결과 */
 .recommendation-result { margin-bottom: 14px; }
@@ -285,3 +283,176 @@
 }
 .weather-result h5 { margin: 0 0 8px; font-size: 14px; color: var(--text-2); font-weight: 600; }
 .weather-temp { margin: 0 0 14px; font-size: 32px; font-weight: 700; color: var(--accent); letter-spacing: -1px; }
+
+/* ═══════════════════════════════════════════
+   플러그인 시스템 (구 Plugin.css 통합)
+   ═══════════════════════════════════════════ */
+
+/* ── 플러그인 실행 (PluginRunner) ── */
+.plugin-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.plugin-input-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.plugin-hint {
+  margin: 0 0 8px;
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+.plugin-result { margin-top: 12px; }
+.plugin-result-text {
+  font-size: 13px;
+  font-family: var(--font);
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--bg-base);
+  color: var(--text-1);
+  padding: 12px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--accent-line);
+  line-height: 1.6;
+  max-height: 240px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+}
+
+/* ── 플러그인 목록 공통 ── */
+.plugin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plugin-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+.plugin-card-desc {
+  font-size: 12px;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.plugin-card-meta {
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.plugin-empty {
+  color: var(--text-3);
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.7;
+  padding: 24px 0;
+}
+
+/* ── 갤러리 (PluginGallery) ── */
+.gallery-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gallery-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg-surface);
+}
+
+.gallery-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.gallery-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.gallery-card-actions .btn-small { margin-left: 0; }
+
+/* 이미 추가됨 배지 */
+.gallery-added-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ── 업로드 ── */
+.plugin-form-textarea {
+  width: 100%;
+  resize: vertical;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.upload-preview {
+  margin: 12px 0;
+  padding: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-sm);
+}
+
+.upload-preview-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.upload-preview-item:last-child { border-bottom: none; }
+.upload-preview-item strong { color: var(--text-1); }
+.upload-preview-item span { color: var(--text-3); font-size: 11.5px; }
+
+/* JSON 예시 (details) */
+.upload-example {
+  margin-top: 14px;
+  font-size: 12px;
+}
+.upload-example summary {
+  cursor: pointer;
+  color: var(--text-2);
+  padding: 6px 0;
+  user-select: none;
+}
+.upload-example summary:hover { color: var(--accent); }
+.upload-example pre {
+  margin-top: 8px;
+  padding: 12px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-2);
+  overflow-x: auto;
+}

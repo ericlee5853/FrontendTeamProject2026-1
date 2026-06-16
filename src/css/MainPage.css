@@ -2,13 +2,10 @@
    MainPage.css — 메인 4패널 레이아웃
    Menu | List | Content | Extension
    각 패널은 마진으로 구분 + 라운드 처리 (Discord 스타일)
-   ═══════════════════════════════════════════════ */
 
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-}
+   ※ html/body/#root 리셋은 global.css에서 처리하므로
+     여기서는 중복 정의하지 않음.
+   ═══════════════════════════════════════════════ */
 
 /* ── 전체 레이아웃 ── */
 .layout-container {
@@ -198,7 +195,7 @@ html, body, #root {
   text-overflow: ellipsis;
 }
 
-/* 친구 요청 박스 — 받은 요청 (인라인 라이트색 → 클래스로 교체됨) */
+/* 친구 요청 박스 */
 .request-box {
   padding: 12px;
   border-radius: var(--r-md);
@@ -232,10 +229,4 @@ html, body, #root {
   flex: 1;
 }
 
-/* 빈 요청 안내 */
-.empty-hint {
-  color: var(--text-3);
-  font-size: 13px;
-  text-align: center;
-  padding: 12px 0;
-}
+/* .empty-hint 는 global.css 로 이동 (List/Extension/Plugin 공용) */

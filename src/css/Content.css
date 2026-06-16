@@ -1,6 +1,9 @@
 /* ═══════════════════════════════════════════════
    Content.css — 콘텐츠 영역
    채팅창 / 친구 탭 / 채팅 정보 패널
+
+   ※ .btn-back-link, .error-message 등 공용 클래스는
+     global.css 에서 처리.
    ═══════════════════════════════════════════════ */
 
 /* ── 탭 콘텐츠 공통 ── */
@@ -165,6 +168,31 @@
   transition: all 0.4s ease;
 }
 
+/* ── 메시지 타임스탬프 (그룹 마지막 메시지 하단) ── */
+.message-timestamp {
+  font-size: 10.5px;
+  color: var(--text-3);
+  margin-top: 3px;
+  padding: 0 4px;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+.message-mine .message-timestamp   { text-align: right; }
+.message-others .message-timestamp { text-align: left; }
+
+/* 같은 분(分) 그룹 내 연속 메시지 — 간격 좁히고 꼬리 정리 */
+.message-grouped {
+  margin-bottom: -6px;
+}
+.message-grouped.message-mine .message-text-content {
+  border-bottom-right-radius: var(--r-lg);
+  border-top-right-radius: 8px;
+}
+.message-grouped.message-others .message-text-content {
+  border-bottom-left-radius: var(--r-lg);
+  border-top-left-radius: 8px;
+}
+
 /* ════════════════════════════════
    4. 메시지 입력 폼
    ════════════════════════════════ */
@@ -250,19 +278,8 @@
   color: var(--accent);
 }
 
-/* 뒤로가기 링크 */
-.btn-back-link {
-  background: none;
-  border: none;
-  color: var(--accent);
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 10px;
-  font-size: 13px;
-  font-family: var(--font);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
+/* 정보패널 내 뒤로가기 링크 여백 (.btn-back-link 기본형은 global) */
+.info-panel .btn-back-link { margin-bottom: 10px; }
 
 .small-card { padding: 10px; font-size: 13px; }
 
@@ -367,7 +384,7 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* 함께 속한 채팅방 박스 (인라인 #f9f9f9 → 클래스로 교체됨) */
+/* 함께 속한 채팅방 박스 */
 .shared-rooms-box {
   margin-top: 18px;
   padding: 12px;
@@ -397,36 +414,3 @@
   color: var(--text-2);
 }
 .shared-room-empty { color: var(--text-3); padding: 4px 0; }
-
-
-/* ── 메시지 타임스탬프 ──
-   그룹의 마지막 메시지 하단에 조그맣게 표시 */
-.message-timestamp {
-  font-size: 10.5px;
-  color: var(--text-3);
-  margin-top: 3px;
-  padding: 0 4px;
-  user-select: none;       /* 드래그 복사 시 시간 텍스트 제외 */
-  letter-spacing: 0.02em;
-}
-
-/* 내 메시지는 시간도 오른쪽 정렬 (말풍선 정렬 따라감 — 추가 설정 불필요하지만 명시) */
-.message-mine .message-timestamp   { text-align: right; }
-.message-others .message-timestamp { text-align: left; }
-
-/* ── 같은 분(分) 그룹 내 연속 메시지 ──
-   타임스탬프가 생략된 메시지는 아래 간격을 좁혀
-   하나의 묶음처럼 보이게 함 */
-.message-grouped {
-  margin-bottom: -6px;     /* messages-stream의 gap(10px)을 4px로 줄이는 효과 */
-}
-
-/* 그룹 내 연속 말풍선은 모서리를 살짝 덜 둥글게 — 이어진 느낌 */
-.message-grouped.message-mine .message-text-content {
-  border-bottom-right-radius: var(--r-lg);  /* 꼬리 제거 (마지막 메시지에만 꼬리) */
-  border-top-right-radius: 8px;
-}
-.message-grouped.message-others .message-text-content {
-  border-bottom-left-radius: var(--r-lg);
-  border-top-left-radius: 8px;
-}

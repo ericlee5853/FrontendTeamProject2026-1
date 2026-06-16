@@ -2,6 +2,10 @@
    global.css — 전역 디자인 토큰 & 공통 컴포넌트
    테마: 다크 기본 / 포인트 컬러: Claude 주황 (#D97757)
    색상 5개 이하: 회색계열, 텍스트계열, 주황, 빨강(위험)
+
+   [로드 순서] main.jsx에서 가장 먼저 import.
+   다른 모든 CSS가 여기 정의된 변수(--accent 등)에 의존하므로
+   반드시 최상단에서 로드되어야 함.
    ═══════════════════════════════════════════════════ */
 
 :root {
@@ -37,7 +41,9 @@
   --ease: 0.15s ease;
 }
 
-/* ── 전역 리셋 ── */
+/* ════════════════════════════════════
+   전역 리셋 (앱 전체에서 단 한 번만 정의)
+   ════════════════════════════════════ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -46,6 +52,7 @@
 
 html { color-scheme: dark; }
 
+/* 뷰포트 고정 (스크롤은 내부 패널에서만) */
 html, body, #root {
   height: 100%;
   overflow: hidden;
@@ -141,11 +148,7 @@ select.text-input {
   transition: all var(--ease);
   white-space: nowrap;
 }
-.btn-action:hover:not(:disabled) {
-  background: var(--accent-tint);
-  border-color: var(--accent-line);
-  color: var(--accent);
-}
+.btn-action:hover:not(:disabled),
 .btn-action.active {
   background: var(--accent-tint);
   border-color: var(--accent-line);
@@ -175,7 +178,34 @@ select.text-input {
   font-size: 12px;
 }
 
-/* 로딩 화면 (MainPage 로딩) */
+/* 뒤로가기 링크 (Content 정보패널 + Extension 상세 공용) */
+.btn-back-link {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  font-family: var(--font);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* 상태 메시지 (Extension/Plugin 공용) */
+.error-message   { color: var(--danger); font-size: 13px; margin-bottom: 10px; }
+.loading-message { color: var(--accent); font-size: 13px; margin-bottom: 10px; }
+
+/* 빈 상태 안내 (List/Extension/Plugin 공용) */
+.empty-hint {
+  color: var(--text-3);
+  font-size: 13px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+/* 로딩 화면 (MainPage 진입 전) */
 .loading-container {
   height: 100vh;
   display: flex;
